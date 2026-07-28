@@ -6,9 +6,9 @@
   <title>Descubra o que está controlando a sua vida mentalmente</title>
   <style>
     :root {
-      --primary-color: #1a568c; /* Azul harmônico com a logo */
+      --primary-color: #1a568c;
       --primary-hover: #13426c;
-      --accent-color: #c0392b;  /* Vermelho/Vinho harmônico com a logo */
+      --accent-color: #c0392b;
       --bg-color: #f3f4f6;
       --card-bg: #ffffff;
       --text-color: #1f2937;
@@ -48,14 +48,14 @@
       overflow: hidden;
     }
 
-    /* Estilo para a Logo na primeira tela */
+    /* Estilo para a Logo */
     .logo-container {
       text-align: center;
       margin-bottom: 16px;
     }
 
     .logo-img {
-      max-width: 180px;
+      max-width: 170px;
       height: auto;
       object-fit: contain;
     }
@@ -228,10 +228,10 @@
       background-color: var(--whatsapp-hover);
     }
 
-    /* Estilos Específicos para a Tela de Finalização */
+    /* Estilos da Tela de Finalização */
     .confirmation-screen {
       text-align: center;
-      padding: 10px 0;
+      padding: 0;
     }
 
     .confirmation-screen h2 {
@@ -284,7 +284,7 @@
 
     <form id="multiStepForm" onsubmit="event.preventDefault();">
       
-      <!-- Passo 1: Apresentação com Logo + Coleta de Dados Pessoais -->
+      <!-- Passo 1: Tela Inicial (Logo + Apresentação + Coleta de Dados) -->
       <div class="step active">
         <div class="logo-container">
           <img src="logo.png" alt="Tatiana Ferreira - Psicanalista" class="logo-img">
@@ -292,7 +292,8 @@
 
         <h2>Descubra o que está controlando a sua vida mentalmente</h2>
         <p class="subtitle" style="margin-top: 8px; margin-bottom: 20px;">
-          Às vezes, aquilo que parece ser apenas um hábito ou uma desculpa pode esconder conflitos emocionais inconscientes. Preencha seus dados para iniciar:
+          Às vezes, aquilo que parece ser apenas um hábito ou uma desculpa pode esconder conflitos emocionais inconscientes.<br><br>
+          Preencha para iniciar:
         </p>
 
         <div class="form-group">
@@ -431,9 +432,13 @@
         </div>
       </div>
 
-      <!-- Tela Final / Confirmação -->
+      <!-- Passo 9: Tela Final (Logo + Confirmação) -->
       <div class="step" id="confirmationStep">
         <div class="confirmation-screen">
+          <div class="logo-container">
+            <img src="logo.png" alt="Tatiana Ferreira - Psicanalista" class="logo-img">
+          </div>
+
           <h2>Suas respostas foram enviadas!</h2>
           <p class="sub-thanks">Obrigada por compartilhar!</p>
 
