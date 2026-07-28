@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Questionário de Autoconhecimento e Padrões Comportamentais</title>
+  <title>Descubra o que está controlando a sua vida mentalmente</title>
   <style>
     :root {
       --primary-color: #4f46e5;
@@ -47,7 +47,6 @@
       overflow: hidden;
     }
 
-    /* Barra de Progresso */
     .progress-bar-container {
       width: 100%;
       height: 6px;
@@ -64,7 +63,6 @@
       transition: width 0.3s ease;
     }
 
-    /* Passos / Etapas */
     .step {
       display: none;
       animation: fadeIn 0.4s ease forwards;
@@ -84,31 +82,32 @@
       font-weight: 700;
       margin-bottom: 8px;
       color: var(--text-color);
+      line-height: 1.35;
     }
 
     p.subtitle {
       font-size: 0.9rem;
       color: var(--text-muted);
       margin-bottom: 20px;
+      line-height: 1.4;
     }
 
     .form-group {
       margin-bottom: 20px;
     }
 
-    label {
+    label.field-label {
       display: block;
-      font-size: 0.95rem;
+      font-size: 1.05rem;
       font-weight: 600;
-      margin-bottom: 10px;
+      margin-bottom: 6px;
+      line-height: 1.35;
     }
 
-    /* Inputs e Textareas */
     input[type="text"],
     input[type="email"],
     input[type="tel"],
-    textarea,
-    select {
+    textarea {
       width: 100%;
       padding: 14px 16px;
       border: 1.5px solid var(--border-color);
@@ -119,17 +118,16 @@
       background-color: #fafafa;
     }
 
-    input:focus, textarea:focus, select:focus {
+    input:focus, textarea:focus {
       border-color: var(--primary-color);
       background-color: #fff;
     }
 
     textarea {
       resize: vertical;
-      min-height: 100px;
+      min-height: 110px;
     }
 
-    /* Opções em formato de Card para celular */
     .options-grid {
       display: flex;
       flex-direction: column;
@@ -142,9 +140,11 @@
       padding: 14px 16px;
       cursor: pointer;
       display: flex;
-      align-items: center;
+      align-items: flex-start;
       transition: all 0.2s ease;
       background-color: #fafafa;
+      font-size: 0.95rem;
+      line-height: 1.35;
     }
 
     .option-card:hover {
@@ -152,15 +152,15 @@
       background-color: #f5f3ff;
     }
 
-    .option-card input[type="radio"],
-    .option-card input[type="checkbox"] {
+    .option-card input[type="radio"] {
       margin-right: 12px;
+      margin-top: 2px;
       accent-color: var(--primary-color);
       width: 18px;
       height: 18px;
+      flex-shrink: 0;
     }
 
-    /* Botões */
     .button-group {
       display: flex;
       justify-content: space-between;
@@ -216,7 +216,6 @@
       background-color: var(--whatsapp-hover);
     }
 
-    /* Tela de Confirmação */
     .confirmation-screen {
       text-align: center;
       padding: 10px 0;
@@ -239,118 +238,185 @@
 <body>
 
   <div class="form-container">
-    <!-- Barra de Progresso -->
     <div class="progress-bar-container" id="progressContainer">
       <div class="progress-bar" id="progressBar"></div>
     </div>
 
     <form id="multiStepForm" onsubmit="event.preventDefault();">
       
-      <!-- Passo 1: Dados Pessoais -->
+      <!-- Passo 1: Apresentação -->
       <div class="step active">
-        <h2>Informações Pessoais</h2>
-        <p class="subtitle">Preencha seus dados para começar a avaliação.</p>
-        
-        <div class="form-group">
-          <label for="nome">Nome Completo</label>
-          <input type="text" id="nome" required placeholder="Digite seu nome">
+        <h2>Descubra o que está controlando a sua vida mentalmente</h2>
+        <p class="subtitle" style="margin-top: 12px;">Às vezes, aquilo que parece ser apenas um hábito ou uma desculpa pode esconder conflitos emocionais inconscientes.</p>
+        <div class="button-group">
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Começar Questionário →</button>
         </div>
-        
+      </div>
+
+      <!-- Passo 2: Nome -->
+      <div class="step">
         <div class="form-group">
-          <label for="email">E-mail</label>
+          <label class="field-label" for="nome">Qual é o seu nome completo?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <input type="text" id="nome" required placeholder="Digite seu nome completo">
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Passo 3: E-mail -->
+      <div class="step">
+        <div class="form-group">
+          <label class="field-label" for="email">Qual é o seu e-mail?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
           <input type="email" id="email" required placeholder="seuemail@exemplo.com">
         </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
 
+      <!-- Passo 4: WhatsApp -->
+      <div class="step">
         <div class="form-group">
-          <label for="whatsapp">WhatsApp / Celular</label>
+          <label class="field-label" for="whatsapp">Qual é o seu WhatsApp?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
           <input type="tel" id="whatsapp" required placeholder="(00) 00000-0000">
         </div>
-
         <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
           <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
         </div>
       </div>
 
-      <!-- Passo 2: Pergunta Comportamental 1 -->
+      <!-- Passo 5: Cidade -->
       <div class="step">
-        <h2>Autoconhecimento</h2>
-        <p class="subtitle">Qual é o seu maior desafio atual?</p>
-        
         <div class="form-group">
+          <label class="field-label" for="cidade">Qual é a sua cidade?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <input type="text" id="cidade" required placeholder="Sua cidade e estado">
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Pergunta 1 -->
+      <div class="step">
+        <div class="form-group">
+          <label class="field-label">1. Quando surge uma oportunidade importante na sua vida, você geralmente:</label>
+          <p class="subtitle">Responda com sinceridade.</p>
           <div class="options-grid">
-            <label class="option-card">
-              <input type="radio" name="desafio" value="Gestão do tempo e produtividade">
-              Gestão do tempo e produtividade
-            </label>
-            <label class="option-card">
-              <input type="radio" name="desafio" value="Controle emocional e ansiedade">
-              Controle emocional e ansiedade
-            </label>
-            <label class="option-card">
-              <input type="radio" name="desafio" value="Clareza de metas e objetivos">
-              Clareza de metas e objetivos
-            </label>
-            <label class="option-card">
-              <input type="radio" name="desafio" value="Melhorar relacionamentos">
-              Melhorar relacionamentos
-            </label>
+            <label class="option-card"><input type="radio" name="p1" value="Aproveita sem pensar duas vezes."> Aproveita sem pensar duas vezes.</label>
+            <label class="option-card"><input type="radio" name="p1" value="Analisa bastante antes de decidir."> Analisa bastante antes de decidir.</label>
+            <label class="option-card"><input type="radio" name="p1" value="Encontra motivos para adiar ou desistir."> Encontra motivos para adiar ou desistir.</label>
+            <label class="option-card"><input type="radio" name="p1" value="Acredita que não é capaz ou que não é o momento."> Acredita que não é capaz ou que não é o momento.</label>
           </div>
         </div>
-
         <div class="button-group">
           <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
           <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
         </div>
       </div>
 
-      <!-- Passo 3: Pergunta Comportamental 2 -->
+      <!-- Pergunta 2 -->
       <div class="step">
-        <h2>Padrões Comportamentais</h2>
-        <p class="subtitle">Como você costuma reagir em situações de alto estresse?</p>
-        
         <div class="form-group">
+          <label class="field-label">2. O que mais costuma impedir você de fazer o que realmente deseja?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
           <div class="options-grid">
-            <label class="option-card">
-              <input type="radio" name="reacao" value="Tendo a procrastinar e adiar decisões">
-              Tendo a procrastinar e adiar decisões
-            </label>
-            <label class="option-card">
-              <input type="radio" name="reacao" value="Fico impulsivo(a) e tomo decisões apressadas">
-              Fico impulsivo(a) e tomo decisões apressadas
-            </label>
-            <label class="option-card">
-              <input type="radio" name="reacao" value="Mantenho a calma e analiso friamente">
-              Mantenho a calma e analiso friamente
-            </label>
-            <label class="option-card">
-              <input type="radio" name="reacao" value="Sinto paralisação e sobrecarga mental">
-              Sinto paralisação e sobrecarga mental
-            </label>
+            <label class="option-card"><input type="radio" name="p2" value="Falta de tempo."> Falta de tempo.</label>
+            <label class="option-card"><input type="radio" name="p2" value="Medo de errar ou fracassar."> Medo de errar ou fracassar.</label>
+            <label class="option-card"><input type="radio" name="p2" value="Medo do julgamento das pessoas."> Medo do julgamento das pessoas.</label>
+            <label class="option-card"><input type="radio" name="p2" value="Nem sei explicar, apenas travo."> Nem sei explicar, apenas travo.</label>
           </div>
         </div>
-
         <div class="button-group">
           <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
           <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
         </div>
       </div>
 
-      <!-- Passo 4: Pergunta Discursiva -->
+      <!-- Pergunta 3 -->
       <div class="step">
-        <h2>Objetivos Futuros</h2>
-        <p class="subtitle">O que você gostaria de transformar na sua rotina hoje?</p>
-        
         <div class="form-group">
-          <textarea id="transformacao" placeholder="Descreva brevemente o que você gostaria de mudar..."></textarea>
+          <label class="field-label">3. Quando algo dá errado, seu pensamento mais frequente é:</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <div class="options-grid">
+            <label class="option-card"><input type="radio" name="p3" value="“Vou encontrar uma solução.”"> “Vou encontrar uma solução.”</label>
+            <label class="option-card"><input type="radio" name="p3" value="“Talvez eu não seja bom o suficiente.”"> “Talvez eu não seja bom o suficiente.”</label>
+            <label class="option-card"><input type="radio" name="p3" value="“A culpa é das circunstâncias.”"> “A culpa é das circunstâncias.”</label>
+            <label class="option-card"><input type="radio" name="p3" value="“Sempre acontece isso comigo.”"> “Sempre acontece isso comigo.”</label>
+          </div>
         </div>
-
         <div class="button-group">
           <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
-          <button type="button" class="btn btn-primary" onclick="submitForm()">Finalizar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
         </div>
       </div>
 
-      <!-- Passo Final: Página de Confirmação -->
+      <!-- Pergunta 4 -->
+      <div class="step">
+        <div class="form-group">
+          <label class="field-label" for="p4">4. Complete a frase:<br><br>A desculpa que mais repito para mim mesmo(a) é:</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <textarea id="p4" placeholder="Escreva aqui..."></textarea>
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Pergunta 5 -->
+      <div class="step">
+        <div class="form-group">
+          <label class="field-label" for="p5">5. Se você pudesse mudar apenas uma área da sua vida hoje, qual seria e por quê?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <textarea id="p5" placeholder="Escreva aqui..."></textarea>
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Pergunta 6 -->
+      <div class="step">
+        <div class="form-group">
+          <label class="field-label" for="p6">6. Existe alguma situação do passado que você acredita que ainda influencia suas decisões atuais? Qual?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <textarea id="p6" placeholder="Escreva aqui..."></textarea>
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Pergunta 7 -->
+      <div class="step">
+        <div class="form-group">
+          <label class="field-label">7. Ao terminar este questionário, qual frase mais representa você neste momento?</label>
+          <p class="subtitle">Responda com sinceridade.</p>
+          <div class="options-grid">
+            <label class="option-card"><input type="radio" name="p7" value="Percebi que existem questões que nunca havia observado em mim."> Percebi que existem questões que nunca havia observado em mim.</label>
+            <label class="option-card"><input type="radio" name="p7" value="Acho que minhas desculpas escondem medos que ainda não enfrentei."> Acho que minhas desculpas escondem medos que ainda não enfrentei.</label>
+            <label class="option-card"><input type="radio" name="p7" value="Sinto que preciso entender melhor minha história."> Sinto que preciso entender melhor minha história.</label>
+            <label class="option-card"><input type="radio" name="p7" value="Acredito que sozinho(a) está sendo difícil romper esse padrão."> Acredito que sozinho(a) está sendo difícil romper esse padrão.</label>
+          </div>
+        </div>
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Enviar Respostas</button>
+        </div>
+      </div>
+
+      <!-- Tela Final / Confirmação -->
       <div class="step" id="confirmationStep">
         <div class="confirmation-screen">
           <div class="confirmation-icon">✓</div>
@@ -359,7 +425,6 @@
             Agradecemos pelo preenchimento do questionário. Para dar prosseguimento ao seu atendimento, clique no botão abaixo para conversar direto pelo WhatsApp.
           </p>
 
-          <!-- Botão solicitado redirecionando para https://wa.link/2n2xwh -->
           <a href="https://wa.link/2n2xwh" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
             <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
               <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
@@ -379,12 +444,13 @@
     const progressContainer = document.getElementById('progressContainer');
 
     function updateProgressBar() {
-      const totalSteps = steps.length - 1; // Desconsidera a tela de confirmação
+      const totalSteps = steps.length - 1; 
       if (currentStep < totalSteps) {
-        const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+        const progressPercent = (currentStep / (totalSteps - 1)) * 100;
         progressBar.style.width = progressPercent + '%';
+        progressContainer.style.display = 'block';
       } else {
-        progressContainer.style.display = 'none'; // Esconde barra na confirmação
+        progressContainer.style.display = 'none';
       }
     }
 
@@ -410,12 +476,10 @@
     }
 
     function submitForm() {
-      // Exibe a tela de confirmação final
       currentStep = steps.length - 1;
       showStep(currentStep);
     }
 
-    // Inicializa a barra de progresso no carregamento
     updateProgressBar();
   </script>
 </body>
