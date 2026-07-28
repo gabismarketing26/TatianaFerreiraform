@@ -6,8 +6,9 @@
   <title>Descubra o que está controlando a sua vida mentalmente</title>
   <style>
     :root {
-      --primary-color: #4f46e5;
-      --primary-hover: #4338ca;
+      --primary-color: #1a568c; /* Azul harmônico com a logo */
+      --primary-hover: #13426c;
+      --accent-color: #c0392b;  /* Vermelho/Vinho harmônico com a logo */
       --bg-color: #f3f4f6;
       --card-bg: #ffffff;
       --text-color: #1f2937;
@@ -45,6 +46,18 @@
       flex-direction: column;
       position: relative;
       overflow: hidden;
+    }
+
+    /* Estilo para a Logo na primeira tela */
+    .logo-container {
+      text-align: center;
+      margin-bottom: 16px;
+    }
+
+    .logo-img {
+      max-width: 180px;
+      height: auto;
+      object-fit: contain;
     }
 
     .progress-bar-container {
@@ -149,7 +162,7 @@
 
     .option-card:hover {
       border-color: var(--primary-color);
-      background-color: #f5f3ff;
+      background-color: #f0f7ff;
     }
 
     .option-card input[type="radio"] {
@@ -271,8 +284,12 @@
 
     <form id="multiStepForm" onsubmit="event.preventDefault();">
       
-      <!-- Passo 1: Apresentação + Coleta de Dados Pessoais (Unificados) -->
+      <!-- Passo 1: Apresentação com Logo + Coleta de Dados Pessoais -->
       <div class="step active">
+        <div class="logo-container">
+          <img src="logo.png" alt="Tatiana Ferreira - Psicanalista" class="logo-img">
+        </div>
+
         <h2>Descubra o que está controlando a sua vida mentalmente</h2>
         <p class="subtitle" style="margin-top: 8px; margin-bottom: 20px;">
           Às vezes, aquilo que parece ser apenas um hábito ou uma desculpa pode esconder conflitos emocionais inconscientes. Preencha seus dados para iniciar:
