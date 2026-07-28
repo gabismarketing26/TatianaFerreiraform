@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Questionário de Autoconhecimento e Padrões Comportamentais</title>
+  <style>
+    :root {
+      --primary-color: #4f46e5;
+      --primary-hover: #4338ca;
+      --bg-color: #f3f4f6;
+      --card-bg: #ffffff;
+      --text-color: #1f2937;
+      --text-muted: #6b7280;
+      --border-color: #e5e7eb;
+      --whatsapp-color: #25d366;
+      --whatsapp-hover: #1da851;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 16px;
+    }
+
+    .form-container {
+      background-color: var(--card-bg);
+      width: 100%;
+      max-width: 500px;
+      border-radius: 16px;
+      box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+      padding: 24px 20px;
+      display: flex;
+      flex-direction: column;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Barra de Progresso */
+    .progress-bar-container {
+      width: 100%;
+      height: 6px;
+      background-color: var(--border-color);
+      border-radius: 3px;
+      margin-bottom: 24px;
+      overflow: hidden;
+    }
+
+    .progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: var(--primary-color);
+      transition: width 0.3s ease;
+    }
+
+    /* Passos / Etapas */
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease forwards;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      color: var(--text-color);
+    }
+
+    p.subtitle {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+      margin-bottom: 20px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      font-size: 0.95rem;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    /* Inputs e Textareas */
+    input[type="text"],
+    input[type="email"],
+    input[type="tel"],
+    textarea,
+    select {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      font-size: 1rem;
+      outline: none;
+      transition: border-color 0.2s ease;
+      background-color: #fafafa;
+    }
+
+    input:focus, textarea:focus, select:focus {
+      border-color: var(--primary-color);
+      background-color: #fff;
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* Opções em formato de Card para celular */
+    .options-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .option-card {
+      border: 1.5px solid var(--border-color);
+      border-radius: 10px;
+      padding: 14px 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      transition: all 0.2s ease;
+      background-color: #fafafa;
+    }
+
+    .option-card:hover {
+      border-color: var(--primary-color);
+      background-color: #f5f3ff;
+    }
+
+    .option-card input[type="radio"],
+    .option-card input[type="checkbox"] {
+      margin-right: 12px;
+      accent-color: var(--primary-color);
+      width: 18px;
+      height: 18px;
+    }
+
+    /* Botões */
+    .button-group {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 24px;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 14px;
+      border: none;
+      border-radius: 10px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background-color 0.2s ease;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary-color);
+      color: #ffffff;
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+    }
+
+    .btn-secondary {
+      background-color: #e5e7eb;
+      color: var(--text-color);
+    }
+
+    .btn-secondary:hover {
+      background-color: #d1d5db;
+    }
+
+    .btn-whatsapp {
+      background-color: var(--whatsapp-color);
+      color: #ffffff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      font-size: 1.05rem;
+      width: 100%;
+      margin-top: 16px;
+      box-shadow: 0 4px 12px rgba(37, 211, 102, 0.3);
+    }
+
+    .btn-whatsapp:hover {
+      background-color: var(--whatsapp-hover);
+    }
+
+    /* Tela de Confirmação */
+    .confirmation-screen {
+      text-align: center;
+      padding: 10px 0;
+    }
+
+    .confirmation-icon {
+      width: 64px;
+      height: 64px;
+      background-color: #d1fae5;
+      color: #10b981;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2rem;
+      margin: 0 auto 16px auto;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="form-container">
+    <!-- Barra de Progresso -->
+    <div class="progress-bar-container" id="progressContainer">
+      <div class="progress-bar" id="progressBar"></div>
+    </div>
+
+    <form id="multiStepForm" onsubmit="event.preventDefault();">
+      
+      <!-- Passo 1: Dados Pessoais -->
+      <div class="step active">
+        <h2>Informações Pessoais</h2>
+        <p class="subtitle">Preencha seus dados para começar a avaliação.</p>
+        
+        <div class="form-group">
+          <label for="nome">Nome Completo</label>
+          <input type="text" id="nome" required placeholder="Digite seu nome">
+        </div>
+        
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input type="email" id="email" required placeholder="seuemail@exemplo.com">
+        </div>
+
+        <div class="form-group">
+          <label for="whatsapp">WhatsApp / Celular</label>
+          <input type="tel" id="whatsapp" required placeholder="(00) 00000-0000">
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Passo 2: Pergunta Comportamental 1 -->
+      <div class="step">
+        <h2>Autoconhecimento</h2>
+        <p class="subtitle">Qual é o seu maior desafio atual?</p>
+        
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="radio" name="desafio" value="Gestão do tempo e produtividade">
+              Gestão do tempo e produtividade
+            </label>
+            <label class="option-card">
+              <input type="radio" name="desafio" value="Controle emocional e ansiedade">
+              Controle emocional e ansiedade
+            </label>
+            <label class="option-card">
+              <input type="radio" name="desafio" value="Clareza de metas e objetivos">
+              Clareza de metas e objetivos
+            </label>
+            <label class="option-card">
+              <input type="radio" name="desafio" value="Melhorar relacionamentos">
+              Melhorar relacionamentos
+            </label>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Passo 3: Pergunta Comportamental 2 -->
+      <div class="step">
+        <h2>Padrões Comportamentais</h2>
+        <p class="subtitle">Como você costuma reagir em situações de alto estresse?</p>
+        
+        <div class="form-group">
+          <div class="options-grid">
+            <label class="option-card">
+              <input type="radio" name="reacao" value="Tendo a procrastinar e adiar decisões">
+              Tendo a procrastinar e adiar decisões
+            </label>
+            <label class="option-card">
+              <input type="radio" name="reacao" value="Fico impulsivo(a) e tomo decisões apressadas">
+              Fico impulsivo(a) e tomo decisões apressadas
+            </label>
+            <label class="option-card">
+              <input type="radio" name="reacao" value="Mantenho a calma e analiso friamente">
+              Mantenho a calma e analiso friamente
+            </label>
+            <label class="option-card">
+              <input type="radio" name="reacao" value="Sinto paralisação e sobrecarga mental">
+              Sinto paralisação e sobrecarga mental
+            </label>
+          </div>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="nextStep()">Avançar →</button>
+        </div>
+      </div>
+
+      <!-- Passo 4: Pergunta Discursiva -->
+      <div class="step">
+        <h2>Objetivos Futuros</h2>
+        <p class="subtitle">O que você gostaria de transformar na sua rotina hoje?</p>
+        
+        <div class="form-group">
+          <textarea id="transformacao" placeholder="Descreva brevemente o que você gostaria de mudar..."></textarea>
+        </div>
+
+        <div class="button-group">
+          <button type="button" class="btn btn-secondary" onclick="prevStep()">← Voltar</button>
+          <button type="button" class="btn btn-primary" onclick="submitForm()">Finalizar</button>
+        </div>
+      </div>
+
+      <!-- Passo Final: Página de Confirmação -->
+      <div class="step" id="confirmationStep">
+        <div class="confirmation-screen">
+          <div class="confirmation-icon">✓</div>
+          <h2>Respostas Enviadas!</h2>
+          <p class="subtitle" style="margin-bottom: 24px;">
+            Agradecemos pelo preenchimento do questionário. Para dar prosseguimento ao seu atendimento, clique no botão abaixo para conversar direto pelo WhatsApp.
+          </p>
+
+          <!-- Botão solicitado redirecionando para https://wa.link/2n2xwh -->
+          <a href="https://wa.link/2n2xwh" target="_blank" rel="noopener noreferrer" class="btn btn-whatsapp">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981z"/>
+            </svg>
+            Clique aqui e converse no whatsapp
+          </a>
+        </div>
+      </div>
+
+    </form>
+  </div>
+
+  <script>
+    let currentStep = 0;
+    const steps = document.querySelectorAll('.step');
+    const progressBar = document.getElementById('progressBar');
+    const progressContainer = document.getElementById('progressContainer');
+
+    function updateProgressBar() {
+      const totalSteps = steps.length - 1; // Desconsidera a tela de confirmação
+      if (currentStep < totalSteps) {
+        const progressPercent = ((currentStep + 1) / totalSteps) * 100;
+        progressBar.style.width = progressPercent + '%';
+      } else {
+        progressContainer.style.display = 'none'; // Esconde barra na confirmação
+      }
+    }
+
+    function showStep(stepIndex) {
+      steps.forEach((step, index) => {
+        step.classList.toggle('active', index === stepIndex);
+      });
+      updateProgressBar();
+    }
+
+    function nextStep() {
+      if (currentStep < steps.length - 1) {
+        currentStep++;
+        showStep(currentStep);
+      }
+    }
+
+    function prevStep() {
+      if (currentStep > 0) {
+        currentStep--;
+        showStep(currentStep);
+      }
+    }
+
+    function submitForm() {
+      // Exibe a tela de confirmação final
+      currentStep = steps.length - 1;
+      showStep(currentStep);
+    }
+
+    // Inicializa a barra de progresso no carregamento
+    updateProgressBar();
+  </script>
+</body>
+</html>
